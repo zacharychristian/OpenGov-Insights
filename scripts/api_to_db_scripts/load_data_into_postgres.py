@@ -28,7 +28,7 @@ def load_data_into_database(table_name, df, max_retries=3, backoff=2):
         
     # Get column names for the SQL query
     cols = ','.join(list(df.columns))
-    conn = psycopg2.connect(dbname="usaSpending", user="postgres", password="DemoRanch261948", host="localhost")
+    conn = psycopg2.connect(dbname="usaSpending", user="postgres", password="Password123", host="localhost")
 
     query = f"INSERT INTO {table_name} ({cols}) VALUES %s"
     attempt = 0
