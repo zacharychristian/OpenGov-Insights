@@ -12,12 +12,15 @@ st.set_page_config(layout="wide")
 ##############
 #Title
 st.write("# OpenGov Insights Dashboard")
+st.write("This dashboard visualizes U.S. government contracting data — including top contracts, agency spending trends, and state-level distributions — to highlight patterns in federal spending over time. All data was sourced from the usaSpending API and processed through a custom data pipeline. It demonstrates end-to-end data engineering and visualization skills for data-focused roles.")
+st.write("Link to GitHub Repo with the code for this dashboard and the data pipeline used to populate it: https://github.com/zacharychristian/OpenGov-Insights")
 st.write("### Top Contracts and Top Contracting Agencies")
 file = 'top_contracts.parquet'
 top_contracts = pd.read_parquet(file)
 
 # Top Contracts Bar chart
 top_contracts = top_contracts[['recipient_name', 'award_amount', 'start_date','end_date']].rename(columns={'recipient_name': 'Recipient Name', 'award_amount': 'Award Amount', 'start_date': 'Start Date', 'end_date':'End Date'}, inplace=False).sort_values(by = 'Award Amount', ascending = False)
+
 title = alt.TitleParams('Top 10 Contracts', anchor='middle')
 top_contracts_chart = alt.Chart(top_contracts).transform_window(
     rank='rank(Award Amount)',
@@ -25,12 +28,14 @@ top_contracts_chart = alt.Chart(top_contracts).transform_window(
 ).transform_filter(
     alt.datum.rank <= 10  # Display top 10 bars
 ).mark_bar().encode(
-    x=alt.X("Award Amount:Q"),
+    x=alt.X("Award Amount:Q", title = 'Outlay Amount'),
     y=alt.Y("Recipient Name:N", sort='-x'),
     color=alt.Color('Award Amount:Q', scale=alt.Scale(scheme='greens')),
-    tooltip=['Recipient Name', 'Award Amount', 'Start Date', 'End Date']
+    tooltip=[alt.Tooltip('Recipient Name', title = 'Recipient Name'),
+             alt.Tooltip('Award Amount', title = 'Outlay Amount', format="$,.2f"),
+            'Start Date', 'End Date']
 ).properties(
-        title = 'Top 10 Individual Contracts of All Time by Awarded Amount',
+        title = 'Top 10 Individual Contracts of All Time by Outlay Amount',
         width='container',  # let Streamlit control width
         height=400
     )
@@ -43,7 +48,7 @@ top_agencies_chart = alt.Chart(top_agencies).mark_bar().encode(
     x=alt.X("Obligated Amount:Q"),
     y=alt.Y("Agency Name:O", sort='-x', stack=True),
     color=alt.Color('Obligated Amount:Q', scale=alt.Scale(scheme='blues')),
-    tooltip=['Agency Name', 'Obligated Amount']
+    tooltip=['Agency Name', alt.Tooltip('Obligated Amount', title = 'Obligated Amount',format="$,.2f")]
 ).properties(
         title = 'Top 10 Agencies by Sum of All Contracts Obligated Amount 2025',
         width='container',  # let Streamlit control width
@@ -63,7 +68,7 @@ with col2:
 
 #Obligated amount definition
 st.write('Obligated Amount is the total funds that have been formally committed by the government agency to the contractor for a specific period or transaction.') 
-st.write('A contract\'s outlay amount is the actual money that has been spent or paid out to fulfill the terms of a contract, as opposed to the total value of the contract which may be an obligation (a promise to pay).')
+st.write('Outlay amount is the actual amount of money that has been spent or paid out to fulfill the terms of a contract, as opposed to the total value of the contract which may be an obligation (a promise to pay).')
 
 
 ###############
@@ -85,7 +90,7 @@ filtered_df['Obligated Amount'] = pd.to_numeric(filtered_df['Obligated Amount'],
 obligated_chart = alt.Chart(filtered_df).mark_line().encode(
     x=alt.X('Fiscal Year:N', axis=alt.Axis(title='Fiscal Year')), # 'O' for ordinal data
     y=alt.Y('Obligated Amount:Q', axis=alt.Axis(title='Obligated Amount')), # 'Q' for quantitative data
-    tooltip = ['Obligated Amount']
+    tooltip = [alt.Tooltip('Obligated Amount', format="$,.2f")]
 ).properties(
     title='Contract Obligated Spending by Agency By Fiscal Year', 
     width = 800,
@@ -102,9 +107,9 @@ outlay_chart = alt.Chart(filtered_df).mark_line().encode(
     x=alt.X('Fiscal Year:N', axis=alt.Axis(title='Fiscal Year')), # 'O' for ordinal data
     y=alt.Y('Outlay Amount:Q', axis=alt.Axis(title='Outlay Amount')), # 'Q' for quantitative data
     color=alt.value("#5D3FD3"),
-    tooltip = ['Outlay Amount']
+    tooltip = [alt.Tooltip('Outlay Amount', format="$,.2f")]
 ).properties(
-    title='Contract Actual Spending by Agency By Fiscal Year', 
+    title='Contract Outlay Spending by Agency By Fiscal Year', 
     width = 800,
     height = 600
 )
@@ -122,6 +127,7 @@ with col2:
 
 ############## State map with data
 st.write("### Government Spending by State and Fiscal Year")
+st.write("Aggregated amount represents the total dollar value of government contract obligations over a fiscal year.")
 
 # Load state-level data. id is to map data in dataframe to states in the visual
 state_awards = pd.read_parquet('awards_by_state.parquet')[[
@@ -158,8 +164,8 @@ chart = (
         color=alt.Color('aggregated_amount:Q', title='Aggregated Amount', scale=alt.Scale(scheme='blues')),
         tooltip=[
             alt.Tooltip('state:N', title='State'),
-            alt.Tooltip('aggregated_amount:Q', title='Aggregated Amount'),
-            alt.Tooltip('per_capita:Q', title='Per Capita'),
+            alt.Tooltip('aggregated_amount:Q', title='Aggregated Amount', format="$,.2f"),
+            alt.Tooltip('per_capita:Q', title='Per Capita', format="$,.2f"),
             alt.Tooltip('fiscal_year:N', title='Fiscal Year')
         ]
     )
