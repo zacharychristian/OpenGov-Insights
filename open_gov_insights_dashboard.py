@@ -66,14 +66,16 @@ with col1:
 with col2:
     st.altair_chart(top_agencies_chart, use_container_width=True)
 
-#Obligated amount definition
-st.write('Obligated Amount is the total funds that have been formally committed by the government agency to the contractor for a specific period or transaction.') 
-st.write('Outlay amount is the actual amount of money that has been spent or paid out to fulfill the terms of a contract, as opposed to the total value of the contract which may be an obligation (a promise to pay).')
 
 
 ###############
 
 st.write("### Government Contract Spending Trends by Agency")
+
+#Obligated amount definition
+st.write('Obligated Amount is the total funds that have been formally committed by the government agency to the contractor for a specific period or transaction.') 
+st.write('Outlay amount is the actual amount of money that has been spent or paid out to fulfill the terms of a contract, as opposed to the total value of the contract which may be an obligation (a promise to pay).')
+
 financial_data = pd.read_parquet('financial_data.parquet')[['agency_name', 'obligated_amount', 'fiscal_year', 'outlay_amount']]
 financial_data = financial_data.rename(columns={'agency_name': 'Agency Name', 'obligated_amount': 'Obligated Amount', 'fiscal_year':'Fiscal Year', 'outlay_amount': 'Outlay Amount'})
 
