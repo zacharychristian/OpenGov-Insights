@@ -22,26 +22,26 @@ A full-stack data pipeline that extracts, transforms, loads, and visualizes fede
 - Language: Python 3.10+, PostgreSQL
 
 ## Project Structure:
-OpenGov-Insights/
-├── usaSpending_api_to_db_flow.py        # Higher Flow script
-├── open_gov_insights_dashboard.py
-├── scripts/api_to_db_scripts/           # Extracting, Transforming, and Loading scripts
-│   ├── __init__.py
-│   ├── get_contract_counts_by_agency.py
-│   ├── get_award_by_state.py
-│   ├── get_top_agencies.py
-│   ├── get_top_contracts.py
-│   └── get_financial_data.py
-│   └── load_data_into_postgres.py
-├── flows/                                # Lower orchestration Scripts
-│   ├── flow_award_by_state.py  
-│   ├── flow_get_contract_counts_by_agency.py
-│   ├── flow_get_financial_data.py
-│   ├── flow_get_top_agencies.py
-│   └── flow_get_top_contracts.py
-├── requirements.txt
-├── .env
-└── data/
+OpenGov-Insights/<br>
+├── usaSpending_api_to_db_flow.py        # Higher Flow script<br>
+├── open_gov_insights_dashboard.py<br>
+├── scripts/api_to_db_scripts/           # Extracting, Transforming, and Loading scripts<br>
+│   ├── __init__.py<br>
+│   ├── get_contract_counts_by_agency.py<br>
+│   ├── get_award_by_state.py<br>
+│   ├── get_top_agencies.py<br>
+│   ├── get_top_contracts.py<br>
+│   └── get_financial_data.py<br>
+│   └── load_data_into_postgres.py<br>
+├── flows/                                # Lower orchestration Scripts<br>
+│   ├── flow_award_by_state.py  <br>
+│   ├── flow_get_contract_counts_by_agency.py<br>
+│   ├── flow_get_financial_data.py<br>
+│   ├── flow_get_top_agencies.py<br>
+│   └── flow_get_top_contracts.py<br>
+├── requirements.txt<br>
+├── .env<br>
+└── data/<br>
 
 ## Known Limitations:
 - flow_get_financial_data runs slowly. This is because to get the required data, the script pings the API for every agency for every fiscal year requested.
