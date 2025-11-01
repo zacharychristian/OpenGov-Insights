@@ -21,6 +21,9 @@ A full-stack data pipeline that extracts, transforms, loads, and visualizes fede
 - Data Source: usaSpending public API
 - Language: Python 3.10+, PostgreSQL
 
+## System Diagram
+![alt text](img/system_diagram.png "System Architecture Diagram")
+
 ## Project Structure:
 OpenGov-Insights/<br>
 ├── usaSpending_api_to_db_flow.py        # Higher Flow script<br>
