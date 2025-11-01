@@ -22,7 +22,7 @@ A full-stack data pipeline that extracts, transforms, loads, and visualizes fede
 - Language: Python 3.10+, PostgreSQL
 
 ## System Diagram
-![alt text](img/system_diagram.png "System Architecture Diagram")
+![alt text](img/pipeline_diagram.png "System Architecture Diagram")
 
 ## Project Structure:
 OpenGov-Insights/<br>
