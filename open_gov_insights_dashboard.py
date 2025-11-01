@@ -137,7 +137,7 @@ state_awards = pd.read_parquet('awards_by_state.parquet')[[
 ]]
 
 # Vega topojson for US states
-states = alt.topo_feature(data.us_10m.url, 'states')
+#states = alt.topo_feature(data.us_10m.url, 'states')
 
 # Streamlit fiscal year selector
 fiscal_years = sorted(state_awards['fiscal_year'].unique())
