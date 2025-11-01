@@ -75,7 +75,7 @@ def get_award_by_state():
     df = pd.DataFrame(list(zip(shape_code, state_name, fisc_year, aggregated_amount, population, per_capita)), columns = ['state_abr',
                                           'state', 'fiscal_year', 'aggregated_amount', 'population', 'per_capita'])
 
-
+    # Gets state IDs from us package for the US map functionality
     state_fips = pd.DataFrame({
         'state': [s.name for s in us.states.STATES],
         'id': [int(s.fips) for s in us.states.STATES]
