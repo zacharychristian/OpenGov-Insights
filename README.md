@@ -49,6 +49,7 @@ OpenGov-Insights/<br>
 - Data only goes back to 2015
 - Some agencies are missing data for certain fiscal years, sometimes several.
   - For example: Federal Communications Commission has no data before 2020 for the Spending Breakdown by Agency visual.
+- The Streamlit dashboard uses files instead of database calls. This is because the PostgreSQL database is hosted locally and the Streamlit dashboard is not.
 
 ## Pipeline Workflow: 
 - Extract: Fetch data from usaSpending API.
@@ -61,3 +62,7 @@ OpenGov-Insights/<br>
 - Logged all jobs with success/failure status.
 - Streamlit dashboard to visualize data.
   - Parquet files used to streamline dashboard dtaa ingestion.
+
+## Future Enhancements:
+- Sending transformed data to S3 along with PostgreSQl. This would allow dynamic changes to the data in the Streamlit dashboard, instead of using static files.
+- Unit testing
