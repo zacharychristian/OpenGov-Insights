@@ -60,3 +60,4 @@ OpenGov-Insights/<br>
 - Awards by State data is merged with external datasets (us package data) for the US map functionality.
 - Logged all jobs with success/failure status.
 - Streamlit dashboard to visualize data.
+  - Parquet files used to streamline dashboard dtaa ingestion.
