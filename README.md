@@ -1,6 +1,6 @@
 # OpenGov-Insights
 
-View the visualizations here: https://opengov-insights-lq4dquz44s9ruz2szrgcbk.streamlit.app/
+View the dashboard here: https://opengov-insights-lq4dquz44s9ruz2szrgcbk.streamlit.app/
 
 A full-stack data pipeline that extracts, transforms, loads, and visualizes federal award data using the USAspending API. The project automates data ingestion, performs scalable transformations, stores results in a structured database, and presents interactive visualizations using Streamlit to analyze agency-specific and contractor-level spending.
 
