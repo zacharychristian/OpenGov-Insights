@@ -18,7 +18,7 @@ st.write("### Top Contracts and Top Contracting Agencies")
 file = 'top_contracts.parquet'
 top_contracts = pd.read_parquet(file)
 
-# Top Contracts Bar chart
+########### Top Contracts Bar chart
 top_contracts = top_contracts[['recipient_name', 'award_amount', 'start_date','end_date']].rename(columns={'recipient_name': 'Recipient Name', 'award_amount': 'Award Amount', 'start_date': 'Start Date', 'end_date':'End Date'}, inplace=False).sort_values(by = 'Award Amount', ascending = False)
 
 title = alt.TitleParams('Top 10 Contracts', anchor='middle')
@@ -44,6 +44,8 @@ top_contracts_chart = alt.Chart(top_contracts).transform_window(
 top_agencies = pd.read_parquet('top_agencies.parquet')[['agency_name', 'obligated_amount']]
 top_agencies = top_agencies.rename(columns={'agency_name': 'Agency Name', 'obligated_amount': 'Obligated Amount'})
 top_agencies = top_agencies.sort_values(by='Obligated Amount', ascending=False).head(10)
+
+################## Top Agencies Bar chart
 top_agencies_chart = alt.Chart(top_agencies).mark_bar().encode(
     x=alt.X("Obligated Amount:Q"),
     y=alt.Y("Agency Name:O", sort='-x', stack=True),
@@ -68,7 +70,7 @@ with col2:
 
 
 
-###############
+############### Line Charts
 
 st.write("### Government Contract Spending Trends by Agency")
 
@@ -88,7 +90,7 @@ else:
 
 filtered_df['Obligated Amount'] = pd.to_numeric(filtered_df['Obligated Amount'], errors='coerce')
 
-# Create chart
+################# Create Obligated Spending line chart
 obligated_chart = alt.Chart(filtered_df).mark_line().encode(
     x=alt.X('Fiscal Year:N', axis=alt.Axis(title='Fiscal Year')), # 'O' for ordinal data
     y=alt.Y('Obligated Amount:Q', axis=alt.Axis(title='Obligated Amount')), # 'Q' for quantitative data
@@ -101,8 +103,7 @@ obligated_chart = alt.Chart(filtered_df).mark_line().encode(
                 
 
 
-###########
-#Line chart spending trends (Outlay amount)
+############# Line chart spending trends (Outlay amount)
 
 filtered_df['Outlay Amount'] = pd.to_numeric(filtered_df['Outlay Amount'], errors='coerce')
 outlay_chart = alt.Chart(filtered_df).mark_line().encode(
@@ -154,7 +155,7 @@ filtered_df['state'] = filtered_df['state'].astype(str)
 
 state_fips = filtered_df[['state', 'id']]
 
-# Create US Map
+########### Create US Map
 chart = (
     alt.Chart(states)
     .mark_geoshape(stroke='white')
@@ -183,7 +184,7 @@ chart = (
 st.altair_chart(chart, use_container_width=True)
 
 
-#########
+######### Interactive Table visual
 st.write("### Spending Breakdown by Agency")
 
 #Interactive table
