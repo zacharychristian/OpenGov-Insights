@@ -14,14 +14,14 @@ A full-stack data pipeline that extracts, transforms, loads, and visualizes fede
 - Contractor spending mostly occurs in Virginia, California, and Texas.
 - Virginia has the highest contractor spending per capita by a wide margin.
 
-##Technology Stack:
+## Technology Stack:
 - Orchestration: Prefect
 - Database: PostgreSQL
 - Transformation: Python
 - Data Source: usaSpending public API
 - Language: Python 3.10+, PostgreSQL
 
-##Project Structure:
+## Project Structure:
 OpenGov-Insights/
 ├── usaSpending_api_to_db_flow.py        # Higher Flow script
 ├── open_gov_insights_dashboard.py
