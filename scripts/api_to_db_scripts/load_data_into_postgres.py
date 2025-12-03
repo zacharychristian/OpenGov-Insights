@@ -1,17 +1,23 @@
+import logging
+logger = logging.getLogger(__name__)
+
 def load_data_into_database(table_name, df, max_retries=3, backoff=2):
     import time
     import psycopg2
     import psycopg2.extras as extras
+
     """
     Insert records into a PostgreSQL table with retry logic.
 
     Retries transient database errors (e.g., connection issues or locks)
     with exponential backoff between attempts.
 
+    Columns in dataframe must match relevant PostgreSQL database columns
+
+    Only connects to usaSpending local PostgreSQL database.
+
     Args:
-        conn: Active psycopg2 connection object.
         table_name (str): Target table name.
-        cols (str): Comma-separated column names.
         tuples (list[tuple]): Data to insert.
         max_retries (int, optional): Max number of retry attempts.
         backoff (int, optional): Base seconds for exponential backoff.
@@ -28,7 +34,7 @@ def load_data_into_database(table_name, df, max_retries=3, backoff=2):
         
     # Get column names for the SQL query
     cols = ','.join(list(df.columns))
-    conn = psycopg2.connect(dbname="usaSpending", user="postgres", password="Password123", host="localhost")
+    conn = psycopg2.connect(dbname="usaSpending", user="postgres", password="password", host="localhost")
 
     query = f"INSERT INTO {table_name} ({cols}) VALUES %s"
     attempt = 0
@@ -38,20 +44,24 @@ def load_data_into_database(table_name, df, max_retries=3, backoff=2):
         try:
             extras.execute_values(cursor, query, tuples)
             conn.commit()
-            print(f"Data successfully inserted into '{table_name}'.")
+            #No data found or an error occurred.(f"Data successfully inserted into '{table_name}'.")
+            logger.info(f"Data successfully inserted into '{table_name}'.")
             return True
 
         except (Exception, psycopg2.DatabaseError) as error:
             conn.rollback()
             attempt += 1
-            print(f"Attempt {attempt} failed: {error}")
+            #No data found or an error occurred.(f"Attempt {attempt} failed: {error}")
+            logger.info(f"Attempt {attempt} failed: {error}")
 
             if attempt < max_retries:
                 sleep_time = backoff ** attempt  # exponential backoff
-                print(f"Retrying in {sleep_time} seconds...")
+                #No data found or an error occurred.(f"Retrying in {sleep_time} seconds...")
+                logger.info(f"Retrying in {sleep_time} seconds...")
                 time.sleep(sleep_time)
             else:
-                print("Max retries reached. Insert failed.")
+                #No data found or an error occurred.("Max retries reached. Insert failed.")
+                logger.info("Max retries reached. Insert failed.")
                 return False
 
         finally:
