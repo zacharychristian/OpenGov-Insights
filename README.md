@@ -68,4 +68,3 @@ OpenGov-Insights/<br>
 
 ## Future Enhancements:
 - Sending transformed data to S3 along with PostgreSQl. This would allow dynamic changes to the data in the Streamlit dashboard, instead of using static files.
-- Unit testing
