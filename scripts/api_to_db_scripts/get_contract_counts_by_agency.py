@@ -1,5 +1,11 @@
+#https://github.com/fedspendingtransparency/usaspending-api/blob/master/usaspending_api/api_contracts/contracts/v2/agency/awards/count.md
+
+import logging
+logger = logging.getLogger(__name__)
+
 def get_contract_counts_by_year_from_api(fiscal_year, max_retries=5, backoff_factor=2):
-  #https://github.com/fedspendingtransparency/usaspending-api/blob/master/usaspending_api/api_contracts/contracts/v2/agency/awards/count.md
+    import time
+
     """
     Returns a json containing aggregated contract data by agency for a provided fiscal year
     """
@@ -16,13 +22,17 @@ def get_contract_counts_by_year_from_api(fiscal_year, max_retries=5, backoff_fac
             data = response.json()
             return data["results"][0]
         except requests.exceptions.RequestException as e:
+            # 400 status code in this context means no data to get. 
+            if response.status_code == 400:
+                logger.info("400 status code. No data to get.")
+                return []   
             wait = backoff_factor * (2 ** attempt)
-            print(f"Attempt {attempt+1}/{max_retries} failed for FY {fiscal_year}: {e}")
+            logger.info(f"Attempt {attempt+1}/{max_retries} failed for FY {fiscal_year}: {e}")
             if attempt < max_retries - 1:
-                print(f"Retrying in {wait} seconds...")
+                logger.info(f"Retrying in {wait} seconds...")
                 time.sleep(wait)
             else:
-                print(f"All retries failed for FY {fiscal_year}")
+                logger.info(f"All retries failed for FY {fiscal_year}")
                 raise
 
 
@@ -57,7 +67,9 @@ def get_contract_counts_by_agency():
             loans.append(agency.get('loans', 0))
             other.append(agency.get('other', 0))
 
+    logger.info("API calls for get_contract_counts_by_agency completed.")
     df = pd.DataFrame(list(zip(awarding_toptier_agency_name, awarding_toptier_agency_code, fisc_year, num_contracts, direct_payments,
                          grants, idvs, loans, other)), columns = ['awarding_toptier_agency_name', 'awarding_toptier_agency_code', 'fiscal_year',
                                                                   'num_contracts', 'direct_payments', 'grants', 'idvs', 'loans', 'other'])
+    logger.info("get_contract_counts_by_agency completed.")
     return df
