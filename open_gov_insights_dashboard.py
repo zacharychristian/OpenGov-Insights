@@ -376,7 +376,7 @@ financial_data = pd.read_parquet('financial_data.parquet')[['agency_name', 'obli
 financial_data = financial_data.rename(columns={'agency_name': 'Agency Name', 'obligated_amount': 'Obligated Amount', 'fiscal_year':'Fiscal Year', 'outlay_amount': 'Outlay Amount'})
 
 # A changeable filter button on streamlit
-selected_category = st.selectbox("Select Agency", options=['All'] + list(financial_data['Agency Name'].unique()))
+selected_category = st.selectbox("Select Agency:", options=['All'] + list(financial_data['Agency Name'].unique()))
 if selected_category != 'All':
     filtered_df = financial_data[financial_data['Agency Name'] == selected_category]
 else:
