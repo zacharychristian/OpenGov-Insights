@@ -18,6 +18,7 @@ A full-stack data pipeline that extracts, transforms, loads, and visualizes fede
 - Orchestration: Prefect
 - Database: PostgreSQL
 - Transformation: Python
+- Testing: PyTest
 - Data Source: usaSpending public API
 - Language: Python 3.10+, PostgreSQL
 
