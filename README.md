@@ -65,7 +65,7 @@ OpenGov-Insights/<br>
 - Awards by State data is merged with external datasets (us package data) for the US map functionality.
 - Logged all jobs with success/failure status.
 - Streamlit dashboard to visualize data.
-  - Parquet files used to streamline dashboard dtaa ingestion.
+  - Parquet files used to streamline dashboard data ingestion.
 
 ## Future Enhancements:
 - Sending transformed data to S3 along with PostgreSQl. This would allow dynamic changes to the data in the Streamlit dashboard, instead of using static files.
