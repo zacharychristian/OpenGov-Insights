@@ -1,6 +1,6 @@
 from unittest.mock import MagicMock, patch
 import pytest
-from usaSpending_project.src.pipelines.get_award_by_state import (
+from usaSpending_project.dags.src.pipelines.get_award_by_state import (
     get_award_by_state_from_api,
 )
 import requests
