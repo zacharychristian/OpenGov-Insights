@@ -1,6 +1,6 @@
 import requests
 from unittest.mock import MagicMock, patch
-from usaSpending_project.scripts.api_to_db_scripts.get_top_contracts import (
+from usaSpending_project.src.pipelines.get_top_contracts import (
     get_top_contracts_from_api,
 )
 import time
