@@ -1,6 +1,6 @@
 import requests
 from unittest.mock import MagicMock, patch
-from usaSpending_project.src.pipelines.get_contract_counts_by_agency import (
+from usaSpending_project.dags.src.pipelines.get_contract_counts_by_agency import (
     get_contract_counts_by_year_from_api,
 )
 import pytest
