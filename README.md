@@ -15,7 +15,7 @@ A full-stack data pipeline that extracts, transforms, loads, and visualizes fede
 - Virginia has the highest contractor spending per capita by a wide margin.
 
 ## Technology Stack:
-- Orchestration: Prefect
+- Orchestration: Airflow
 - Database: PostgreSQL
 - Transformation: Python
 - Testing: PyTest
@@ -27,25 +27,26 @@ A full-stack data pipeline that extracts, transforms, loads, and visualizes fede
 
 ## Project Structure:
 OpenGov-Insights/<br>
-├── usaSpending_api_to_db_flow.py        # Higher Flow script<br>
-├── open_gov_insights_dashboard.py<br>
-├── scripts/api_to_db_scripts/           # Extracting, Transforming, and Loading scripts<br>
+├── docker-compose.yaml        # Acts as a blueprint for defining and orchestrating all the interconnected services that constitute a complete Apache Airflow environment within Docker. <br>
+├── dockerfile        # Dockerfile is necessary to import needed python packages into airflow environment. <br>
+├── requirements.txt # Requirements file to import needed python libraries<br>
+├── open_gov_insights_dashboard.py #Python script to create dashboard<br>
+├── README <br>
+├── dags <br>
 │   ├── __init__.py<br>
-│   ├── get_contract_counts_by_agency.py<br>
-│   ├── get_award_by_state.py<br>
-│   ├── get_top_agencies.py<br>
-│   ├── get_top_contracts.py<br>
-│   └── get_financial_data.py<br>
-│   └── load_data_into_postgres.py<br>
-├── flows/                                # Lower orchestration Scripts<br>
-│   ├── flow_award_by_state.py  <br>
+│   ├── dag_award_by_state.py<br>
+│   ├── dag_contract_counts_by_agency.py<br>
+│   ├── dag_financial_data.py<br>
+│   ├── dag_get_top_agencies.py<br>
+│   ├── dag_ml_data.py<br>
+│   ├── dag_top_contracts.py<br>
+├   ├────── src/
+│            ├── pipelines  <br>
 │   ├── flow_get_contract_counts_by_agency.py<br>
 │   ├── flow_get_financial_data.py<br>
 │   ├── flow_get_top_agencies.py<br>
 │   └── flow_get_top_contracts.py<br>
-├── requirements.txt<br>
-├── .env<br>
-└── data/<br>
+
 
 ## Known Limitations:
 - flow_get_financial_data runs slowly. This is because to get the required data, the script pings the API for every agency for every fiscal year requested.
