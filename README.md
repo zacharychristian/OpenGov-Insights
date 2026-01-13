@@ -32,7 +32,7 @@ OpenGov-Insights/<br>
 ├── requirements.txt # Requirements file to import needed python libraries<br>
 ├── open_gov_insights_dashboard.py #Python script to create dashboard<br>
 ├── README <br>
-├── dags <br> #Contain the Airflow DAGs for each pipeline
+├── dags #Contain the Airflow DAGs for each pipeline<br>
 │   ├── pipelines #Contains the code for each pipeline<br>
 │   ├── unit_tests #Contains the unit test code for each pipeline API call function<br>
 
