@@ -41,7 +41,7 @@ top_contracts_chart = alt.Chart(top_contracts).transform_window(
     )
 
 # Load and prepare data
-top_agencies = pd.read_parquet('top_agencies.parquet')[['agency_name', 'obligated_amount']]
+top_agencies = pd.read_parquet('parquet_files/top_agencies.parquet')[['agency_name', 'obligated_amount']]
 top_agencies = top_agencies.rename(columns={'agency_name': 'Agency Name', 'obligated_amount': 'Obligated Amount'})
 top_agencies = top_agencies.sort_values(by='Obligated Amount', ascending=False).head(10)
 
@@ -78,7 +78,7 @@ st.write("### Government Contract Spending Trends by Agency")
 st.write('Obligated Amount is the total funds that have been formally committed by the government agency to the contractor for a specific period or transaction.') 
 st.write('Outlay amount is the actual amount of money that has been spent or paid out to fulfill the terms of a contract, as opposed to the total value of the contract which may be an obligation (a promise to pay).')
 
-financial_data = pd.read_parquet('financial_data.parquet')[['agency_name', 'obligated_amount', 'fiscal_year', 'outlay_amount']]
+financial_data = pd.read_parquet('parquet_files/financial_data.parquet')[['agency_name', 'obligated_amount', 'fiscal_year', 'outlay_amount']]
 financial_data = financial_data.rename(columns={'agency_name': 'Agency Name', 'obligated_amount': 'Obligated Amount', 'fiscal_year':'Fiscal Year', 'outlay_amount': 'Outlay Amount'})
 
 # A changeable filter button on streamlit
@@ -133,7 +133,7 @@ st.write("### Predicting 2026 Actual Contract Spending for Defense Agencies Usin
 st.write("The below graph shows the spending from previous years in blue and the predicted spending for 2026 in orange. The 2026 data is predicted using machine learning and the Prophet library. Prophet was used because it can handle quarterly time series data without modification, incorporate regressors easily, and Prophet produces uncertainty intervals automatically.")
 
 # Load ML Forecast Data
-ml_data = pd.read_parquet("ml_trend_data.parquet")
+ml_data = pd.read_parquet("parquet_files/ml_trend_data.parquet")
 
 # Ensure datetime
 ml_data["quarter_start_date"] = pd.to_datetime(ml_data["quarter_start_date"])
@@ -207,7 +207,7 @@ st.write("### Government Spending by State and Fiscal Year")
 st.write("Aggregated amount represents the total dollar value of government contract obligations over a fiscal year.")
 
 # Load state-level data. id is to map data in dataframe to states in the visual
-state_awards = pd.read_parquet('awards_by_state.parquet')[[
+state_awards = pd.read_parquet('parquet_files/awards_by_state.parquet')[[
     'state_abr', 'state', 'fiscal_year', 'aggregated_amount', 'per_capita', 'id'
 ]]
 
@@ -265,7 +265,7 @@ st.altair_chart(chart, use_container_width=True)
 st.write("### Spending Breakdown by Agency")
 
 #Interactive table
-contract_counts = pd.read_parquet('agency_contract_counts.parquet')
+contract_counts = pd.read_parquet('parquet_files/agency_contract_counts.parquet')
 
 agency_filter = sorted(contract_counts['awarding_toptier_agency_name'].unique())
 selected_agency = st.selectbox("Select Awarding Agency", agency_filter)
