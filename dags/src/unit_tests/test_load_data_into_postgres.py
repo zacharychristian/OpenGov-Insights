@@ -1,7 +1,7 @@
 import pytest
 import pandas as pd
 from unittest.mock import MagicMock, patch
-from usaSpending_project.src.pipelines.load_data_into_postgres import load_data_into_database
+from usaSpending_project.dags.src.pipelines.load_data_into_postgres import load_data_into_database
 
 # Sample DataFrame for testing
 df_sample = pd.DataFrame({
