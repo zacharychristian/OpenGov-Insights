@@ -1,6 +1,6 @@
 import requests
 from unittest.mock import MagicMock, patch
-from usaSpending_project.scripts.api_to_db_scripts.get_top_agencies import (
+from usaSpending_project.src.pipelines.get_top_agencies import (
     get_top_agencies_from_api,
 )
 import requests
