@@ -1,6 +1,6 @@
 from unittest.mock import MagicMock, patch
 import pytest
-from usaSpending_project.src.pipelines.get_financial_data import (
+from usaSpending_project.dags.src.pipelines.get_financial_data import (
     get_financial_data_from_api,
 )
 import requests
