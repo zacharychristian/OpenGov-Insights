@@ -32,20 +32,10 @@ OpenGov-Insights/<br>
 ├── requirements.txt # Requirements file to import needed python libraries<br>
 ├── open_gov_insights_dashboard.py #Python script to create dashboard<br>
 ├── README <br>
-├── dags <br>
-│   ├── __init__.py<br>
-│   ├── dag_award_by_state.py<br>
-│   ├── dag_contract_counts_by_agency.py<br>
-│   ├── dag_financial_data.py<br>
-│   ├── dag_get_top_agencies.py<br>
-│   ├── dag_ml_data.py<br>
-│   ├── dag_top_contracts.py<br>
-├   ├────── src/
-│            ├── pipelines  <br>
-│   ├── flow_get_contract_counts_by_agency.py<br>
-│   ├── flow_get_financial_data.py<br>
-│   ├── flow_get_top_agencies.py<br>
-│   └── flow_get_top_contracts.py<br>
+├── dags <br> #Contain the Airflow DAGs for each pipeline
+│   ├── pipelines #Contains the code for each pipeline<br>
+│   ├── unit_tests #Contains the unit test code for each pipeline API call function<br>
+
 
 
 ## Known Limitations:
