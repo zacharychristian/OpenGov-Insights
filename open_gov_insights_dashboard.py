@@ -15,7 +15,7 @@ st.write("# OpenGov Insights Dashboard")
 st.write("This dashboard visualizes U.S. government contracting data — including top contracts, agency spending trends, and state-level distributions — to highlight patterns in federal spending over time. All data was sourced from the usaSpending API and processed through a custom data pipeline. It demonstrates end-to-end data engineering and visualization skills for data-focused roles.")
 st.write("Link to GitHub Repo with the code for this dashboard and the data pipeline used to populate it: https://github.com/zacharychristian/OpenGov-Insights")
 st.write("### Top Contracts and Top Contracting Agencies")
-file = 'top_contracts.parquet'
+file = 'parquet_files/top_contracts.parquet'
 top_contracts = pd.read_parquet(file)
 
 ########### Top Contracts Bar chart
