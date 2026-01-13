@@ -33,7 +33,7 @@ OpenGov-Insights/<br>
 ├── open_gov_insights_dashboard.py #Python script to create dashboard<br>
 ├── README <br>
 ├── dags #Contain the Airflow DAGs for each pipeline<br>
-│   ├── pipelines #Contains the code for each pipeline<br>
+│           ├── pipelines #Contains the code for each pipeline<br>
 │   ├── unit_tests #Contains the unit test code for each pipeline API call function<br>
 
 
